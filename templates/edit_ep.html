@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	<div class="fcol">
+		<div class="space_head">
+			&nbsp;
+		</div>
+	</div>
+
+	<div class="fcol_about">
+	<div class="add_ep">
+		<div class="add_ep_align">
+
+		<form action="" method="POST", enctype="multipart/form-data">
+		{{ form.hidden_tag() }}
+		<p>
+		    {{ form.epname.label }}:
+		    {{ form.epname(size=34) }}<br>
+		    {% for error in form.epname.errors %}
+			<span style="color: red;">[{{ error }}]</span>
+		    {% endfor %}
+		</p>
+		<p>
+		    {{ form.epnum.label }}:
+		    {{ form.epnum(size=32) }}<br>
+		    {% for error in form.epnum.errors %}
+			<span style="color: red;">[{{ error }}]</span>
+		    {% endfor %}
+		</p>
+		<p>
+		    {{ form.eplink.label }}:
+		    {{ form.eplink(size=34) }}<br>
+		    {% for error in form.eplink.errors %}
+			<span style="color: red;">[{{ error }}]</span>
+		    {% endfor %}
+		</p>
+		<p>
+		    {{ form.epaudio.label }}:
+		    {{ form.epaudio(size=32) }}<br>
+		    {% for error in form.epaudio.errors %}
+			<span style="color: red;">[{{ error }}]</span>
+		    {% endfor %}
+		</p>
+
+		<p>
+		{{ form.epdesc.label }}:<br>
+		    {{ form.epdesc(cols=42, rows=4) }}<br>
+		    {% for error in form.epdesc.errors %}
+			<span style="color: red;">[{{ error }}]</span>
+		    {% endfor %}
+		</p>
+		<p>
+                    {{ form.it_sum.label }}:<br>
+                    {{ form.it_sum(cols=42, rows=4) }}<br>
+                    {% for error in form.it_sum.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+                <p>
+                    {{ form.it_subtitle.label }}:
+                    {{ form.it_subtitle(size=23) }}<br>
+                    {% for error in form.it_subtitle.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+		<div class="submit_b">
+		{{ form.submit() }}
+		</div>
+		</form>
+
+		</div>
+	</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	<div class="fcol">
+		<div class="space_head">
+			&nbsp;
+		</div>
+	</div>
+	<div class="fcol">
+		<div class="sub_head">
+			<b>{{current_user.username}}</b>  |  
+			[ <a href="{{ url_for('profile', order_by="name") }}" >Name</a> | <a href="{{ url_for('profile', order_by="author") }}" >Author</a>
+                        | <a href="{{ url_for('profile', order_by="buildtime") }}" >Buildtime</a> ]  
+			|  <a href="{{ url_for('add_pod', username=current_user.username) }}">Add Podcast</a>
+		</div>
+	</div>
+
+	{% for podcast in podcasts %}
+		<div class="fcol_100">
+		<div class="pod_disp">
+			<img class="pod_icon" src="{{ [web_path, '/static/', user.id, '/', podcast.id, '/', podcast.image_path]|join }}">
+			<div class="pod_info">
+				<div class="pcol">
+					<div class="pod_cmds_wrap">
+						<a href="{{ url_for('delete_pod', username=current_user.username, pod_id=podcast.id) }}">
+							<div class="pod_cmd">
+							Delete
+							</div>
+						</a>
+						<a href="{{ url_for('edit_pod', username=current_user.username, pod_id=podcast.id) }}">
+							<div class="pod_cmd">
+							Edit
+							</div>
+						</a>
+					</div>
+
+					<div class="pod_text"> 				
+					<b>Title:</b> <a href="{{ url_for('podcast', user_id=user.id, pod_id=podcast.id) }}">{{ podcast.podname }}</a><br>
+					<b>Owner:</b> {{ podcast.username }}<br>
+					<b>Author:</b> {{ podcast.author }}<br>
+					<b>Link: </b><a href="{{ [user.id, '/', podcast.id]|join }}">{{ podcast.podlink }}</a><br>
+					<b>RSS Link: </b><a href="{{ podcast.rsslink }}">{{ podcast.rsslink }}</a><br>
+					<b>Update:</b> {{ podcast.buildtime }}<br>
+					<b>Info:</b> {{ podcast.poddesc }}
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,240 @@
+*{box-sizing: border-box;}
+
+.about {
+	border: 1px solid black;
+	height: 100%;
+	padding-top: 55px;
+	text-align: center;
+}
+
+.login {
+	border: 1px solid black;
+	height: 100%;
+	padding-top: 35px;
+	text-align: center;
+}
+
+.add_pod {
+	height: 630px;
+	width: 100%;
+	border: 1px solid black;
+	padding: 20px;
+	text-align: center;
+	font-family: Monospace;
+}
+
+.add_ep {
+	height: 445px;
+	width: 100%;
+	border: 1px solid black;
+	padding: 20px;
+	text-align: center;
+	font-family: Monospace;
+}
+
+.add_ep_align {
+	margin: 0 auto;
+	width: 362px;
+	text-align: left;
+}
+
+.add_pod_align {
+	margin: 0 auto;
+	width: 353px;
+	text-align: left;
+}
+
+.submit_b {
+	width: 100%;
+	text-align: center;
+}
+
+.fcol {
+	width: 100%;
+	float: left;
+}
+
+.pcol {
+	margin-left: 145px;
+	height: 100%;
+}
+
+.fcol_100 {
+	width: 100%;
+	float: left;
+	height: 150px;
+}
+
+.fcol_about {
+	width: 100%;
+	float: left;
+	height: 150px;
+}
+
+#title1 {
+	font-family: Monospace;
+	text-align: center;
+        font-size: 350%;
+        text-decoration: underline;
+	padding: 5px;
+	margin-top: 2%;
+	margin-left: 2%;
+	margin-right: 2%;
+	border: 1px solid black;
+}
+
+.site_cmds {
+	text-align: center;
+        font-size: 100%;
+}
+
+.sub_head {
+	font-family: Monospace;
+}
+
+.pod_disp {
+	font-family: Monospace;
+	height: 100%;
+        font-size: 80%;
+}
+
+.colcmds {
+	color: black;
+	font-family: Monospace;
+	width: 25%;
+	float: left;
+	padding: 15px;
+}
+
+.colcmds:hover {
+	color: red;
+	width: 25%;
+	float: left;
+	padding: 15px;
+}
+
+.login_disp {
+	font-family: Monospace;
+	height: 200px;
+}
+
+.pod_space {
+	height: 20%;
+}
+
+.pod_icon {
+	height: 100%;
+	overflow: hidden;
+	float: left;
+	padding: 5px;
+	padding-right: 10px;
+}
+
+.pod_info {
+	border: 1px solid red;
+	height: 100%;
+	padding: 5px;
+}
+
+.pod_info_space {
+	float: left;
+	width: 10px;
+	height: 100%;
+}
+
+.pod_cmds_wrap {
+	float: right;
+	text-align: center;
+}
+
+.pod_cmds_wrap a {
+	text-decoration: none;
+}
+
+.pod_cmd {
+	color: black;
+	width: 100%;
+	padding: 5px;
+}
+
+.pod_cmd:hover {
+	color: red;
+	width: 100%;
+	padding: 5px;
+}
+
+.pod_info {
+	border: 1px solid black;
+	height: 100%;
+	padding: 5px;
+}
+
+.register_align {
+	width: 315px;
+	text-align: left;
+	margin: 0 auto;
+}
+
+.register_disp {
+	font-family: Monospace;
+	height: 235px;
+}
+
+
+.space_head {
+	height: 5%;
+}
+
+@media only screen and (min-width: 600px) {
+/* ############################################ */
+/* 			Desktop 		*/
+/* ############################################ */
+
+	/* base.html */
+	.site_cmds {
+		text-align: center;
+		font-size: 150%;
+	}
+	#title1 {
+		font-family: Monospace;
+		text-align: center;
+		font-size: 600%;
+		text-decoration: underline;
+		padding: 5px;
+		margin-top: 2%;
+		margin-left: 2%;
+		margin-right: 2%;
+		border: 1px solid black;
+	}
+
+	/* index.html */
+	.fcol {
+		width: 80%;
+		float: left;
+		margin-left: 10%;
+		margin-right: 10%;
+	}
+	.fcol_margin {
+		margin-left: 10%;
+		margin-right: 10%;
+		margin-bottom: 10px;
+		width: 80%;
+	}
+	.fcol_100 {
+		width: 80%;
+		float: left;
+		height: 150px;
+		margin-bottom: 10px;
+		margin-left: 10%;
+		margin-right: 10%;
+	}
+	.fcol_about {
+		width: 80%;
+		float: left;
+		height: 150px;
+		margin-left: 10%;
+		margin-right: 10%;
+	}
+
+}
+

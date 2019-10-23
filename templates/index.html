@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<div class="fcol">
+		<div class="space_head">
+			&nbsp;
+		</div>
+	</div>
+	<div class="fcol">
+		<div class="sub_head">
+			[ <a href="{{ url_for('index', order_by="name") }}" >Name</a> | <a href="{{ url_for('index', order_by="author") }}" >Author</a> 
+			| <a href="{{ url_for('index', order_by="buildtime") }}" >Buildtime</a> ]
+		</div>
+	</div>
+
+	{% for pod in all_pods %}
+		<div class="fcol_100">
+		<div class="pod_disp">
+			<img class="pod_icon" src="{{ ['static/', pod.user_id, '/', pod.id, '/', pod.image_path]|join }}">
+			<div class="pod_info">
+				<b>Title:</b> <a href="{{ url_for('podcast', user_id=pod.user_id, pod_id=pod.id) }}">{{ pod.podname }}</a><br>
+				<b>Owner:</b> {{ pod.username}}<br>
+				<b>Author:</b> {{ pod.author }}<br>
+				<b>Link: </b><a href="{{ [pod.user_id, '/', pod.id]|join }}">{{ pod.podlink }}</a><br>
+				<b>RSS Link:</b> <a href="{{ pod.rsslink }}">{{ pod.rsslink }}</a><br>
+				<b>Updated:</b> {{ pod.buildtime }}<br>
+				<b>Info:</b> {{ pod.poddesc }}
+			</div>
+		</div>
+		</div>
+	{% endfor %}
+{% endblock %}

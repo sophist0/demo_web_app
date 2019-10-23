@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title>Glitschen</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+	<div id="title1">
+		Glitschen
+	</div>
+
+	<div class="site_cmds">
+		<a href="{{ url_for('index') }}">
+			<div class="colcmds">Home</div>
+		</a>
+	    	<a href="{{ url_for('about') }}">
+			<div class="colcmds">About</div>
+		</a>
+	    	{% if current_user.is_anonymous %}
+		<a href="{{ url_for('register') }}">
+			<div class="colcmds">Register</div>
+		</a>
+		<a href="{{ url_for('login') }}">
+			<div class="colcmds">Login</div>
+		</a>
+	    	{% else %}
+		<a href="{{ url_for('profile', username=current_user.username) }}">
+			<div class="colcmds">Profile</div>
+	    	</a>
+		<a href="{{ url_for('logout') }}">
+			<div class="colcmds">Logout</div>
+		</a>
+	    {% endif %}
+	</div>
+        {% block content %}
+	{% endblock %}
+    </body>
+</html>

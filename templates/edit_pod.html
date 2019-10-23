@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	<div class="fcol">
+                <div class="space_head">
+                        &nbsp;
+                </div>
+        </div>
+
+        <div class="fcol_about">
+		<div class="add_pod">
+		<div class="add_pod_align">
+			<form action="" method="POST", enctype="multipart/form-data">
+			{{ form.hidden_tag() }}
+			<p>
+			    {{ form.author.label }}:
+			    {{ form.author(size=30) }}<br>
+			    {% for error in form.author.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+			    {% endfor %}
+			</p>
+			<p>
+			    {{ form.podname.label }}:
+			    {{ form.podname(size=31) }}<br>
+			    {% for error in form.podname.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+			    {% endfor %}
+			</p>
+			<p>
+			{{ form.podicon.label }}:<br>
+			    {{ form.podicon(size=24) }}<br>
+			    {% for error in form.podicon.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+			    {% endfor %}
+			</p>
+			<p>
+			    {{ form.poddesc.label }}:<br>
+			    {{ form.poddesc(cols=41, rows=4) }}<br>
+			    {% for error in form.poddesc.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+			    {% endfor %}
+			</p>
+			<p>
+			    {{ form.it_own_name.label }}:
+			    {{ form.it_own_name(size=19) }}<br>
+			    {% for error in form.it_own_name.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+			    {% endfor %}
+			</p>
+			<p>
+			    {{ form.it_own_email.label }}:
+			    {{ form.it_own_email(size=18) }}<br>
+			    {% for error in form.it_own_email.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+			    {% endfor %}
+			</p>
+			<p>
+			    {{ form.it_cat.label }}:
+			    {{ form.it_cat(size=22) }}<br>
+			    {% for error in form.it_cat.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+			    {% endfor %}
+			</p>
+			<p>
+			    {{ form.it_subcat.label }}:
+			    {{ form.it_subcat(size=19) }}<br>
+			    {% for error in form.it_subcat.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+			    {% endfor %}
+			</p>
+			<p>
+			    {{ form.it_sum.label }}:<br>
+			    {{ form.it_sum(cols=41, rows=4) }}<br>
+			    {% for error in form.it_sum.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+			    {% endfor %}
+			</p>
+			<p>
+			    {{ form.it_subtitle.label }}:
+			    {{ form.it_subtitle(size=22) }}<br>
+			    {% for error in form.it_subtitle.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+			    {% endfor %}
+			</p>
+			<p>
+			    {{ form.it_keys.label }}:
+			    {{ form.it_keys(size=26) }}<br>
+			    {% for error in form.it_keys.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+			    {% endfor %}
+			</p>
+			<p>
+			    {{ form.it_explicit.label }}:
+			    {{ form.it_explicit(size=13) }}<br>
+			    {% for error in form.it_explicit.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+			    {% endfor %}
+			</p>
+
+			<div class="submit_b">
+			{{ form.submit() }}
+			</div>
+			</form>
+
+		</div>
+		</div>
+	</div>
+{% endblock %}

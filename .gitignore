@@ -1,0 +1,10 @@
+# Ignore Database and Migrations
+app.db
+migrations/
+
+# Ignore other folders
+static/*
+__pycache__/
+
+# Don't ignore CSS
+!static/style.css

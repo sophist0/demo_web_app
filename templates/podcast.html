@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	<div class="fcol">
+		<div class="space_head">
+			&nbsp;
+		</div>
+	</div>
+	<div class="fcol">
+		<div class="sub_head">
+			<b>{{current_user.username}}</b>  
+			|  Podcast: {{ podcast.podname}}  | 
+			{% if user.id == podcast.user_id  %}
+				<a href="{{ url_for('add_eps', username=user.username, pod_id=podcast.id) }}">Add Episode</a>
+			{% endif %}
+		</div>
+	</div>
+
+        {% for ep in eps %}
+		<div class="fcol_100">
+		<div class="pod_disp">
+			<img class="pod_icon" src="{{ ['../static/', podcast.user_id, '/', podcast.id, '/', podcast.image_path]|join }}">
+			<div class="pod_info">
+				<div class="pcol">
+					{% if user.id == podcast.user_id  %}
+						<div class="pod_cmds_wrap">
+							<a href="{{ url_for('edit_ep', username=current_user.username, pod_id=podcast.id, ep_id=ep.id) }}">
+								<div class="pod_cmd">
+								Edit
+								</div>
+							</a>
+							<a href="{{ url_for('delete_ep', username=current_user.username, pod_id=podcast.id, ep_id=ep.id) }}">
+								<div class="pod_cmd">
+								Delete
+								</div>
+							</a>
+						</div>
+					{% endif %}
+
+					<div class="pod_text">
+					<b>Episode Name:</b> {{ ep.epname }}<br>
+					<b>Episode Number:</b> {{ ep.epnum }}<br>
+					<b>Episode Audio:</b> <a href="{{ ['../static/', podcast.user_id, '/', podcast.id, '/', ep.audio_path]|join }}">Audio</a><br>
+					<b>Episode Link:</b> {{ ep.eplink }}<br>
+					<p>
+					<b>Episode Description:</b> {{ ep.epdesc }}
+					</p>
+					</div>
+				</div>
+			</div>
+
+		</div>
+        	</div>
+        {% endfor %}
+
+{% endblock %}
