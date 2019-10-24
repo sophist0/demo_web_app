@@ -1,7 +1,7 @@
 I developed this website for a project that was never completed. Figure it demonstrates I can do webprogramming in a pinch.
 
 ##############################################################################################
-Setup a virtual box server
+Setup a nginx server on a virtualbox
 ##############################################################################################
 
 This tutorial assumes the host machine is Ubuntu 18.04 LTS but it should work on other operating systems.
@@ -26,7 +26,7 @@ Ram -> 4096 MB*
 Next open demo_site’s settings in virtualbox and under the Network tab enable Adapter 1 and set it to 
 Attached to: NAT
 
-Under the advanced settings Cable Connected is checked but I’m not sure this matters. 
+Under the Advanced settings Cable Connected is checked but I’m not sure this matters. 
 
 Open “Port Forwarding” and set two rules.
 	Name	Protocol	Host IP		Host Port	Guest IP	Guest Port
@@ -35,11 +35,11 @@ Open “Port Forwarding” and set two rules.
 
 (This allows one to connect locally to demo_site only)
 
-Under the Storage tab in the Settings for demo_site load the Ubuntu Server 18.04 LTS disk image on the CD drive and start demo_site.
+Under the Storage tab in the Settings for demo_site load the Ubuntu Server 18.04 LTS disk image on the Optical drive and start demo_site.
 
 Click through the first 7 steps of the server installation using all the default settings. 
 
-Under the Profile setup enter page enter
+Under the Profile setup page enter
 
 Your name: a_user
 Sever name: demo_site
@@ -51,9 +51,9 @@ On the next page check the option to install the OpenSSH server then click Done.
 
 On the following page click Done without installing any additional packages. 
 
-Then Reboot the server and remove the disk image from demo_site.
+After the OS installs reboot the server and remove the disk image from demo_site.
 
-Connect to demo_site via
+Connect to demo_site via (alternatively you could just use demo_site's terminal)
 
 $ ssh -p 2200 a_user@127.0.0.1
 
@@ -64,7 +64,7 @@ Install the Nginx server on the demo_site and test Flask
 (based on https://vladikk.com/2013/09/12/serving-flask-with-nginx-on-ubuntu/)
 ###################################################################################
 
-Login to demo_site
+Login to demo_site and run the following
 
 $ sudo apt-get update
 $ sudo apt-get upgrade
@@ -74,10 +74,15 @@ $ sudo apt-get install nginx-common
 $ sudo apt-get install nginx
 $ sudo apt-get -y install python3 ipython3 python3-flask curl
 
-$ mkdir ~/flask
+$ sudo apt-get install python3-dev
+$ sudo apt-get install python3-pip
+$ pip3 install uwsgi
 
+$ mkdir ~/flask
 $ cd flask
-$ vim hello.py and paste in (minus "*")
+$ vim hello.py 
+
+and paste in the below (minus "*" symbols)
 
 ****************************************************************************
 from flask import Flask
@@ -91,13 +96,11 @@ if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8080)
 ****************************************************************************
 
-$ sudo apt-get install python3-dev
-$ sudo apt-get install python3-pip
-$ pip3 install uwsgi
-
 $ sudo rm /etc/nginx/sites-enabled/default
+$ cd ~/flask
+$ vim flask_nginx.conf
 
-In /home/a_user/flask/ save flask_nginx.conf as (minus "*")
+and paste in the below
 
 ****************************************************************************
 server {
@@ -117,7 +120,11 @@ server {
 $ sudo ln -s /home/a_user/flask/flask_nginx.conf /etc/nginx/conf.d/
 $ sudo /etc/init.d/nginx restart
 
-Create file /home/a_user/flask/test_uwsgi.ini with contents
+$ cd ~/flask
+$ mv test_uwsgi.ini demo_uwsgi.ini
+$ vim demo_uwsgi.ini
+
+and paste in the below
 
 ****************************************************************************
 [uwsgi]
@@ -131,7 +138,7 @@ socket = /home/a_user/flask/%n.sock
 #permissions for the socket file
 chmod-socket    = 666
 
-#the variable that holds a flask application inside the module imported at line #6
+#the variable that holds a flask application inside the module imported at line #3
 callable = app
 
 #location of log files
@@ -143,23 +150,21 @@ Make log folder for uwsgi
 $ sudo mkdir -p /var/log/uwsgi
 $ sudo chown -R a_user:a_user /var/log/uwsgi
 
-pip3 installed uwsgi in ~/.local/bin
-
-Create symlink to bin.
+pip3 installed uwsgi in ~/.local/bin. Create symlink to uwsgi.
 
 $ sudo ln -s ~/.local/bin/uwsgi /usr/bin/uwsgi
 
-Run
+Run uwsgi.
 
 $ uwsgi --ini /home/a_user/flask/test_uwsgi.ini
 
-Goto server IP address 127.0.0.1:8000 in a browser on your host machine.
+Go to demo_site's ip address 127.0.0.1:8000 in a browser on your host machine.
 
-Output “Hello World!”
+Your browser should show “Hello World!”
 
 This means the nginx server and Flask are working and correctly configured.
 
-(I skip setting up uWSGI Emperor which allows uWSGI to run as a background service for the moment.)
+(I skip setting up uWSGI Emperor which allows uWSGI to run as a background service.)
 
 ###################################################################################
 Pull down the web app and reconfigure uWSGI
@@ -167,6 +172,7 @@ Pull down the web app and reconfigure uWSGI
 
 Download app from github.
 
+$ cd
 $ sudo apt-get install git
 $ git clone https://github.com/sophist0/demo_web_app
 $ mv demo_web_app/ app/
@@ -200,11 +206,10 @@ $ flask db init
 $ flask db migrate -m "users table"
 $ flask db upgrade
 
-$ sudo chmod 775 app/
 $ sudo chmod 775 static/		(not sure either of these permission changes are needed)
-
-In /home/a_user/demo_conf/ 
-
+$ cd ..
+$ sudo chmod 775 app/
+$ cd ~/demo_conf/ 
 $ cp flask_nginx.conf demo_nginx.conf
 
 Update the contents of demo_nginx.conf to be
@@ -232,7 +237,7 @@ $ sudo rm /etc/nginx/conf.d/flask_nginx.conf
 $ sudo /etc/init.d/nginx restart
 
 $ cd ~/demo/app
-$ uwsgi --ini /home/a_user/demo_conf/test_uwsgi.ini --wsgi-file=demo.py --callable app
+$ uwsgi --ini /home/a_user/demo_conf/demo_uwsgi.ini --wsgi-file=demo.py --callable app
 
 In a browser go to 127.0.0.1:8000
 
